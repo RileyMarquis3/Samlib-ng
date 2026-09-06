@@ -1,0 +1,200 @@
+
+In samlib-0.3.2 line 80:
+		echo Failed test: $*
+                                  ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+
+
+In samlib-0.3.2 line 82:
+			echo Failed test: $* on $SAMVER >>/usr/src/samlib-work/regression-log
+                                          ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+
+
+In samlib-0.3.2 line 161:
+				BASEFILE="$1"			
+                                ^------^ SC2034 (warning): BASEFILE appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 213:
+				if [ $? -ne 0 ]; then
+                                     ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.2 line 235:
+	if [ $? -ne 0 ]; then
+             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.2 line 261:
+		read TESTYN || :
+                ^--^ SC2162 (info): read without -r will mangle backslashes.
+
+
+In samlib-0.3.2 line 373:
+		echo $[ $I1O1 | (255-$I2O1) ].$[ $I1O2 | (255-$I2O2) ].$[ $I1O3 | (255-$I2O3) ].$[ $I1O4 | (255-$I2O4) ]
+                     ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                              ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                                       ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                                                                ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 377:
+	CKPTBROADCASTOF=""
+        ^-------------^ SC2034 (warning): CKPTBROADCASTOF appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 411:
+			if [ $? -ne 0 ]; then
+                             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.2 line 417:
+			printf "%1s%-2s%-40s%-50s\n" '-' "$[ `$SUDO cat "$TMPFILE" | wc -l` - `$SUDO cat "$1" | wc -l` ]" "$1" "$2"
+                                                          ^-- SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 431:
+	if [ $? -ne 0 ]; then
+             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.2 line 436:
+	echo Line 2 >>$REGRESSTESTFILE
+        ^----------------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+
+
+In samlib-0.3.2 line 543:
+		else				CKPTIPLE="" ; return 0
+                                                ^------^ SC2034 (warning): CKPTIPLE appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 598:
+		else				CKPTIPLT="" ; return 1
+                                                ^------^ SC2034 (warning): CKPTIPLT appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 695:
+	CKPTISNUMERICIP="" ; return 0
+        ^-------------^ SC2034 (warning): CKPTISNUMERICIP appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 840:
+	    if [ $[ $1 ] -gt $MAX ]; then
+                 ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 841:
+		MAX=$[ $1 ]
+                    ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 887:
+		echo $[ $I1O1 & $I2O1 ].$[ $I1O2 & $I2O2 ].$[ $I1O3 & $I2O3 ].$[ $I1O4 & $I2O4 ]
+                     ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                        ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                           ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                                              ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 890:
+	CKPTNETWORKOF=""
+        ^-----------^ SC2034 (warning): CKPTNETWORKOF appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 955:
+		for ONEIP in $* ; do
+                             ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+
+
+In samlib-0.3.2 line 987:
+			ENONUMBITS=$[ $ENONUMBITS - 1 ]
+                                   ^------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                      ^---------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.2 line 996:
+	CKPTENCOMPASSINGNETWORKOF=""
+        ^-----------------------^ SC2034 (warning): CKPTENCOMPASSINGNETWORKOF appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.2 line 1026:
+	1)	SEQSTART=1 ; SEQSTOP=$[ $1 ]							;;
+                                     ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 1027:
+	*)	SEQSTART=$[ $1 ] ; SEQSTOP=$[ $2 ]						;;
+                         ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                           ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 1036:
+				SEQCOUNT=$[ $SEQCOUNT + 1 ]
+                                         ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                            ^-------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.2 line 1042:
+				SEQCOUNT=$[ $SEQCOUNT - 1 ]
+                                         ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                            ^-------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.2 line 1091:
+                if [ "${TERM}" = "xterm" -o "${TERM}" = "xterm-color" ]; then
+                                         ^-- SC2166 (warning): Prefer [ p ] || [ q ] as [ p -o q ] is not well defined.
+
+
+In samlib-0.3.2 line 1126:
+			if [ $? -ne 0 ]; then
+                             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.2 line 1142:
+	if [ $? -ne 0 ]; then
+             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.2 line 1147:
+	echo Line 2 >>$REGRESSTESTFILE
+        ^----------------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+
+
+In samlib-0.3.2 line 1219:
+			LINELENGTH_INT=$[ $LINELENGTH - `echo -n "$WRAPHEADER" | wc -c` ]
+                                       ^-- SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                          ^---------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.2 line 1221:
+			LINELENGTH_INT=$[ 72 - `echo -n "$WRAPHEADER" | wc -c` ]
+                                       ^-- SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 1223:
+		if [ $[ $LINELENGTH_INT ] -lt 20 ]; then
+                     ^------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.2 line 1239:
+			while read LINE ; do echo $LINE ; done
+                              ^--^ SC2162 (info): read without -r will mangle backslashes.
+
+
+In samlib-0.3.2 line 1241:
+			echo $ENH $*
+                                  ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+
+
+In samlib-0.3.2 line 1283:
+	echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER
+                                                               ^----------------^ SC2126 (style): Consider using 'grep -c' instead of 'grep|wc -l'.
+
+
+In samlib-0.3.2 line 1287:
+		echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
+                                                                       ^----------------^ SC2126 (style): Consider using 'grep -c' instead of 'grep|wc -l'.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2034 -- BASEFILE appears unused. Verify u...
+  https://www.shellcheck.net/wiki/SC2048 -- Use "$@" (with quotes) to prevent...
+  https://www.shellcheck.net/wiki/SC2166 -- Prefer [ p ] || [ q ] as [ p -o q...

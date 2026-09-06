@@ -1,0 +1,1599 @@
+
+In samlib-0.3.1 line 78:
+		echo Failed test: $*
+                                  ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+                                  ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		echo Failed test: "$*"
+
+
+In samlib-0.3.1 line 80:
+			echo Failed test: $* on $SAMVER >>/usr/src/samlib-work/regression-log
+                                          ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+                                          ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			echo Failed test: "$*" on "$SAMVER" >>/usr/src/samlib-work/regression-log
+
+
+In samlib-0.3.1 line 159:
+				BASEFILE="$1"			
+                                ^------^ SC2034 (warning): BASEFILE appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 192:
+requireutil cat $SUDO grep printf mktemp rm dd touch || exit 1	#umask is a shell builtin.
+                ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+requireutil cat "$SUDO" grep printf mktemp rm dd touch || exit 1	#umask is a shell builtin.
+
+
+In samlib-0.3.1 line 204:
+			echo \"$2\" is already in $1 - not adding again. >&2
+                               ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                  ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			echo \""$2"\" is already in "$1" - not adding again. >&2
+
+
+In samlib-0.3.1 line 207:
+			if $SUDO [ -f $1 ]; then
+                                      ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			if $SUDO [ -f "$1" ]; then
+
+
+In samlib-0.3.1 line 208:
+				OLDUMASK=`umask`
+                                         ^-----^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+				OLDUMASK=$(umask)
+
+
+In samlib-0.3.1 line 210:
+				TMPFILE=`mktemp -q /tmp/addline.XXXXXX`
+                                        ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+				TMPFILE=$(mktemp -q /tmp/addline.XXXXXX)
+
+
+In samlib-0.3.1 line 211:
+				if [ $? -ne 0 ]; then
+                                     ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.1 line 220:
+				umask $OLDUMASK
+                                      ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+				umask "$OLDUMASK"
+
+
+In samlib-0.3.1 line 232:
+	REGRESSTESTFILE=`mktemp -q /tmp/$1.XXXXXX`
+                        ^------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                        ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	REGRESSTESTFILE=$(mktemp -q /tmp/"$1".XXXXXX)
+
+
+In samlib-0.3.1 line 233:
+	if [ $? -ne 0 ]; then
+             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.1 line 237:
+	addline $REGRESSTESTFILE "A line of text" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	addline "$REGRESSTESTFILE" "A line of text" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 238:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 241:
+	addline $REGRESSTESTFILE "A new line of text" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	addline "$REGRESSTESTFILE" "A new line of text" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 242:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 246:
+	rm -f $REGRESSTESTFILE
+              ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	rm -f "$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 259:
+		read TESTYN || :
+                ^--^ SC2162 (info): read without -r will mangle backslashes.
+
+
+In samlib-0.3.1 line 338:
+	if [ ! `bits2mask` = "255.255.255.255" ]; then						error bits2mask-1 ; fi
+               ^---------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^---------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(bits2mask) = "255.255.255.255" ]; then						error bits2mask-1 ; fi
+
+
+In samlib-0.3.1 line 339:
+	if [ ! `bits2mask 5` = "248.0.0.0" ]; then						error bits2mask-2 ; fi
+               ^-----------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-----------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(bits2mask 5) = "248.0.0.0" ]; then						error bits2mask-2 ; fi
+
+
+In samlib-0.3.1 line 340:
+	if [ ! `bits2mask 1/30` = "255.255.255.252" ]; then					error bits2mask-3 ; fi
+               ^--------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^--------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(bits2mask 1/30) = "255.255.255.252" ]; then					error bits2mask-3 ; fi
+
+
+In samlib-0.3.1 line 354:
+	32|255.255.255.255)	echo $1									;;
+                                     ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	32|255.255.255.255)	echo "$1"									;;
+
+
+In samlib-0.3.1 line 363:
+		[0-9]|[1-2][0-9]|3[0-2])	SPLITIP=`bits2mask $2`			;;
+                                                        ^------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                                                   ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		[0-9]|[1-2][0-9]|3[0-2])	SPLITIP=$(bits2mask "$2")			;;
+
+
+In samlib-0.3.1 line 371:
+		echo $[ $I1O1 | (255-$I2O1) ].$[ $I1O2 | (255-$I2O2) ].$[ $I1O3 | (255-$I2O3) ].$[ $I1O4 | (255-$I2O4) ]
+                     ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                              ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                                       ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                                                                ^----------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.1 line 375:
+	CKPTBROADCASTOF=""
+        ^-------------^ SC2034 (warning): CKPTBROADCASTOF appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 379:
+	if [ ! `broadcastof 0.0.0.0 0.0.0.0` = "255.255.255.255" ]; then			error broadcastof-1 ; fi
+               ^---------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^---------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(broadcastof 0.0.0.0 0.0.0.0) = "255.255.255.255" ]; then			error broadcastof-1 ; fi
+
+
+In samlib-0.3.1 line 380:
+	if [ ! `broadcastof 1.2.3.4 255.255.255.0` = "1.2.3.255" ]; then			error broadcastof-2 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(broadcastof 1.2.3.4 255.255.255.0) = "1.2.3.255" ]; then			error broadcastof-2 ; fi
+
+
+In samlib-0.3.1 line 381:
+	if [ ! `broadcastof 15.1.2.3 255.0.0.0` = "15.255.255.255" ]; then			error broadcastof-3 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(broadcastof 15.1.2.3 255.0.0.0) = "15.255.255.255" ]; then			error broadcastof-3 ; fi
+
+
+In samlib-0.3.1 line 382:
+	if [ ! `broadcastof 1.2.3.4 128.0.0.0` = "127.255.255.255" ]; then			error broadcastof-4 ; fi
+               ^-----------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(broadcastof 1.2.3.4 128.0.0.0) = "127.255.255.255" ]; then			error broadcastof-4 ; fi
+
+
+In samlib-0.3.1 line 389:
+requireutil cat $SUDO grep mktemp dd printf rm || exit 1
+                ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+requireutil cat "$SUDO" grep mktemp dd printf rm || exit 1
+
+
+In samlib-0.3.1 line 403:
+			echo "$1" doesn\'t exist, can\'t remove \"$2\". >&2
+                                                                  ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			echo "$1" doesn\'t exist, can\'t remove \""$2"\". >&2
+
+
+In samlib-0.3.1 line 406:
+			OLDUMASK=`umask`
+                                 ^-----^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			OLDUMASK=$(umask)
+
+
+In samlib-0.3.1 line 408:
+			TMPFILE=`mktemp -q /tmp/delline.XXXXXX`
+                                ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			TMPFILE=$(mktemp -q /tmp/delline.XXXXXX)
+
+
+In samlib-0.3.1 line 409:
+			if [ $? -ne 0 ]; then
+                             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.1 line 415:
+			printf "%1s%-2s%-40s%-50s\n" '-' "$[ `$SUDO cat "$TMPFILE" | wc -l` - `$SUDO cat "$1" | wc -l` ]" "$1" "$2"
+                                                          ^-- SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                             ^----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                                                                              ^----------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			printf "%1s%-2s%-40s%-50s\n" '-' "$[ $($SUDO cat "$TMPFILE" | wc -l) - $($SUDO cat "$1" | wc -l) ]" "$1" "$2"
+
+
+In samlib-0.3.1 line 418:
+			umask $OLDUMASK
+                              ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			umask "$OLDUMASK"
+
+
+In samlib-0.3.1 line 420:
+			echo \"$2\" is not in "$1" - not removing. >&2
+                               ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			echo \""$2"\" is not in "$1" - not removing. >&2
+
+
+In samlib-0.3.1 line 428:
+	REGRESSTESTFILE=`mktemp -q /tmp/$1.XXXXXX`
+                        ^------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                        ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	REGRESSTESTFILE=$(mktemp -q /tmp/"$1".XXXXXX)
+
+
+In samlib-0.3.1 line 429:
+	if [ $? -ne 0 ]; then
+             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.1 line 433:
+	echo Line 1 >$REGRESSTESTFILE
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 1 >"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 434:
+	echo Line 2 >>$REGRESSTESTFILE
+        ^----------------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 2 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 435:
+	echo Line 3 >>$REGRESSTESTFILE
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 3 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 436:
+	echo Line 4 >>$REGRESSTESTFILE
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 4 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 437:
+	echo Line 5 >>$REGRESSTESTFILE
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 5 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 438:
+	delline $REGRESSTESTFILE "Line 4" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	delline "$REGRESSTESTFILE" "Line 4" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 439:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 445:
+	delline $REGRESSTESTFILE "Isnt in the file" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	delline "$REGRESSTESTFILE" "Isnt in the file" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 446:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 452:
+	delline $REGRESSTESTFILE "3" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	delline "$REGRESSTESTFILE" "3" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 453:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 458:
+	delline $REGRESSTESTFILE "Line 1" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	delline "$REGRESSTESTFILE" "Line 1" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 459:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 463:
+	delline $REGRESSTESTFILE "Line 5" >/dev/null 2>/dev/null
+                ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	delline "$REGRESSTESTFILE" "Line 5" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 464:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 467:
+	rm -f $REGRESSTESTFILE
+              ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	rm -f "$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 492:
+		if [ $I1O1 -eq $I2O1 ] && [ $I1O2 -eq $I2O2 ] && [ $I1O3 -eq $I2O3 ] && [ $I1O4 -eq $I2O4 ]; then
+                     ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                               ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                            ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                      ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                   ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                             ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                                          ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                                                    ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		if [ "$I1O1" -eq "$I2O1" ] && [ "$I1O2" -eq "$I2O2" ] && [ "$I1O3" -eq "$I2O3" ] && [ "$I1O4" -eq "$I2O4" ]; then
+
+
+In samlib-0.3.1 line 521:
+		  if [ $I1O1 -lt $I2O1 ]; then	CKPTIPLE="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O1" -lt "$I2O1" ]; then	CKPTIPLE="" ; return 0
+
+
+In samlib-0.3.1 line 522:
+		elif [ $I1O1 -gt $I2O1 ]; then	CKPTIPLE="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O1" -gt "$I2O1" ]; then	CKPTIPLE="" ; return 1
+
+
+In samlib-0.3.1 line 527:
+		  if [ $I1O2 -lt $I2O2 ]; then	CKPTIPLE="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O2" -lt "$I2O2" ]; then	CKPTIPLE="" ; return 0
+
+
+In samlib-0.3.1 line 528:
+		elif [ $I1O2 -gt $I2O2 ]; then	CKPTIPLE="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O2" -gt "$I2O2" ]; then	CKPTIPLE="" ; return 1
+
+
+In samlib-0.3.1 line 533:
+		  if [ $I1O3 -lt $I2O3 ]; then	CKPTIPLE="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O3" -lt "$I2O3" ]; then	CKPTIPLE="" ; return 0
+
+
+In samlib-0.3.1 line 534:
+		elif [ $I1O3 -gt $I2O3 ]; then	CKPTIPLE="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O3" -gt "$I2O3" ]; then	CKPTIPLE="" ; return 1
+
+
+In samlib-0.3.1 line 539:
+		  if [ $I1O4 -lt $I2O4 ]; then	CKPTIPLE="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O4" -lt "$I2O4" ]; then	CKPTIPLE="" ; return 0
+
+
+In samlib-0.3.1 line 540:
+		elif [ $I1O4 -gt $I2O4 ]; then	CKPTIPLE="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O4" -gt "$I2O4" ]; then	CKPTIPLE="" ; return 1
+
+
+In samlib-0.3.1 line 541:
+		else				CKPTIPLE="" ; return 0
+                                                ^------^ SC2034 (warning): CKPTIPLE appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 576:
+		  if [ $I1O1 -lt $I2O1 ]; then	CKPTIPLT="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O1" -lt "$I2O1" ]; then	CKPTIPLT="" ; return 0
+
+
+In samlib-0.3.1 line 577:
+		elif [ $I1O1 -gt $I2O1 ]; then	CKPTIPLT="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O1" -gt "$I2O1" ]; then	CKPTIPLT="" ; return 1
+
+
+In samlib-0.3.1 line 582:
+		  if [ $I1O2 -lt $I2O2 ]; then	CKPTIPLT="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O2" -lt "$I2O2" ]; then	CKPTIPLT="" ; return 0
+
+
+In samlib-0.3.1 line 583:
+		elif [ $I1O2 -gt $I2O2 ]; then	CKPTIPLT="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O2" -gt "$I2O2" ]; then	CKPTIPLT="" ; return 1
+
+
+In samlib-0.3.1 line 588:
+		  if [ $I1O3 -lt $I2O3 ]; then	CKPTIPLT="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O3" -lt "$I2O3" ]; then	CKPTIPLT="" ; return 0
+
+
+In samlib-0.3.1 line 589:
+		elif [ $I1O3 -gt $I2O3 ]; then	CKPTIPLT="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O3" -gt "$I2O3" ]; then	CKPTIPLT="" ; return 1
+
+
+In samlib-0.3.1 line 594:
+		  if [ $I1O4 -lt $I2O4 ]; then	CKPTIPLT="" ; return 0
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$I1O4" -lt "$I2O4" ]; then	CKPTIPLT="" ; return 0
+
+
+In samlib-0.3.1 line 595:
+		elif [ $I1O4 -gt $I2O4 ]; then	CKPTIPLT="" ; return 1
+                       ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                 ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$I1O4" -gt "$I2O4" ]; then	CKPTIPLT="" ; return 1
+
+
+In samlib-0.3.1 line 596:
+		else				CKPTIPLT="" ; return 1
+                                                ^------^ SC2034 (warning): CKPTIPLT appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 620:
+    ifconfig $1 2>/dev/null | awk '/inet addr/{print substr($2,6)}'
+             ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+    ifconfig "$1" 2>/dev/null | awk '/inet addr/{print substr($2,6)}'
+
+
+In samlib-0.3.1 line 624:
+	if [ ! "`ipof lo`" = "127.0.0.1" ]; then						error ipof-1 ; fi
+                ^-------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(ipof lo)" = "127.0.0.1" ]; then						error ipof-1 ; fi
+
+
+In samlib-0.3.1 line 625:
+	if [ ! "`ipof qeqeqeqeqeqeqeqe`" = "" ]; then						error ipof-2 ; fi
+                ^---------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(ipof qeqeqeqeqeqeqeqe)" = "" ]; then						error ipof-2 ; fi
+
+
+In samlib-0.3.1 line 693:
+	CKPTISNUMERICIP="" ; return 0
+        ^-------------^ SC2034 (warning): CKPTISNUMERICIP appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 764:
+	if [ ! `mask2bits 255.255.255.255` = "32" ]; then					error mask2bits-1 ; fi
+               ^-------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2bits 255.255.255.255) = "32" ]; then					error mask2bits-1 ; fi
+
+
+In samlib-0.3.1 line 765:
+	if [ ! `mask2bits 255.255.255.254` = "31" ]; then					error mask2bits-2 ; fi
+               ^-------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2bits 255.255.255.254) = "31" ]; then					error mask2bits-2 ; fi
+
+
+In samlib-0.3.1 line 766:
+	if [ ! `mask2bits 255.255.255.252` = "30" ]; then					error mask2bits-3 ; fi
+               ^-------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2bits 255.255.255.252) = "30" ]; then					error mask2bits-3 ; fi
+
+
+In samlib-0.3.1 line 767:
+	if [ ! `mask2bits 255.255.255.248` = "29" ]; then					error mask2bits-4 ; fi
+               ^-------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2bits 255.255.255.248) = "29" ]; then					error mask2bits-4 ; fi
+
+
+In samlib-0.3.1 line 768:
+	if [ ! `mask2bits 128.0.0.0` = "1" ]; then						error mask2bits-5 ; fi
+               ^-------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2bits 128.0.0.0) = "1" ]; then						error mask2bits-5 ; fi
+
+
+In samlib-0.3.1 line 769:
+	if [ ! `mask2bits 0.0.0.0` = "0" ]; then						error mask2bits-6 ; fi
+               ^-----------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-----------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2bits 0.0.0.0) = "0" ]; then						error mask2bits-6 ; fi
+
+
+In samlib-0.3.1 line 820:
+	if [ ! `mask2cisco 255.255.255.128` = "0.0.0.127" ]; then				error mask2cisco-1 ; fi
+               ^--------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^--------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2cisco 255.255.255.128) = "0.0.0.127" ]; then				error mask2cisco-1 ; fi
+
+
+In samlib-0.3.1 line 821:
+	if [ ! `mask2cisco 255.255.192.0` = "0.0.63.255" ]; then				error mask2cisco-2 ; fi
+               ^------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2cisco 255.255.192.0) = "0.0.63.255" ]; then				error mask2cisco-2 ; fi
+
+
+In samlib-0.3.1 line 822:
+	if [ ! `mask2cisco 22` = "0.0.3.255" ]; then						error mask2cisco-3 ; fi
+               ^-------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(mask2cisco 22) = "0.0.3.255" ]; then						error mask2cisco-3 ; fi
+
+
+In samlib-0.3.1 line 838:
+	    if [ $[ $1 ] -gt $MAX ]; then
+                 ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                             ^--^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	    if [ $[ $1 ] -gt "$MAX" ]; then
+
+
+In samlib-0.3.1 line 839:
+		MAX=$[ $1 ]
+                    ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.1 line 843:
+	echo $MAX
+             ^--^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo "$MAX"
+
+
+In samlib-0.3.1 line 849:
+	if [ ! `max` = "0" ]; then								error max-1 ; fi
+               ^---^ SC2046 (warning): Quote this to prevent word splitting.
+               ^---^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(max) = "0" ]; then								error max-1 ; fi
+
+
+In samlib-0.3.1 line 850:
+	if [ ! `max 1` = "1" ]; then								error max-2 ; fi
+               ^-----^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-----^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(max 1) = "1" ]; then								error max-2 ; fi
+
+
+In samlib-0.3.1 line 851:
+	if [ ! `max 2 5` = "5" ]; then								error max-3 ; fi
+               ^-------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(max 2 5) = "5" ]; then								error max-3 ; fi
+
+
+In samlib-0.3.1 line 852:
+	if [ ! `max -2 -4` = "-2" ]; then							error max-4 ; fi
+               ^---------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^---------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(max -2 -4) = "-2" ]; then							error max-4 ; fi
+
+
+In samlib-0.3.1 line 853:
+	if [ ! `max -2 -4 13 -10` = "13" ]; then						error max-5 ; fi
+               ^----------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^----------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(max -2 -4 13 -10) = "13" ]; then						error max-5 ; fi
+
+
+In samlib-0.3.1 line 854:
+	if [ ! `max 1 1 1 1 1` = "1" ]; then							error max-6 ; fi
+               ^-------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(max 1 1 1 1 1) = "1" ]; then							error max-6 ; fi
+
+
+In samlib-0.3.1 line 868:
+	32|255.255.255.255)	echo $1									;;
+                                     ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	32|255.255.255.255)	echo "$1"									;;
+
+
+In samlib-0.3.1 line 877:
+		[0-9]|[1-2][0-9]|3[0-2])	SPLITIP=`bits2mask $2`			;;
+                                                        ^------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                                                   ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		[0-9]|[1-2][0-9]|3[0-2])	SPLITIP=$(bits2mask "$2")			;;
+
+
+In samlib-0.3.1 line 885:
+		echo $[ $I1O1 & $I2O1 ].$[ $I1O2 & $I2O2 ].$[ $I1O3 & $I2O3 ].$[ $I1O4 & $I2O4 ]
+                     ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                        ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                           ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                                                              ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.1 line 888:
+	CKPTNETWORKOF=""
+        ^-----------^ SC2034 (warning): CKPTNETWORKOF appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 892:
+	if [ ! `networkof 0.0.0.0 0.0.0.0` = "0.0.0.0" ]; then					error networkof-1 ; fi
+               ^-------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 0.0.0.0 0.0.0.0) = "0.0.0.0" ]; then					error networkof-1 ; fi
+
+
+In samlib-0.3.1 line 893:
+	if [ ! `networkof 1.2.3.4 255.255.255.0` = "1.2.3.0" ]; then				error networkof-2 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 1.2.3.4 255.255.255.0) = "1.2.3.0" ]; then				error networkof-2 ; fi
+
+
+In samlib-0.3.1 line 894:
+	if [ ! `networkof 15.1.2.3 255.0.0.0` = "15.0.0.0" ]; then				error networkof-3 ; fi
+               ^----------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 15.1.2.3 255.0.0.0) = "15.0.0.0" ]; then				error networkof-3 ; fi
+
+
+In samlib-0.3.1 line 895:
+	if [ ! `networkof 1.2.3.4 128.0.0.0` = "0.0.0.0" ]; then				error networkof-4 ; fi
+               ^---------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^---------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 1.2.3.4 128.0.0.0) = "0.0.0.0" ]; then				error networkof-4 ; fi
+
+
+In samlib-0.3.1 line 896:
+	if [ ! `networkof 0.0.0.0 0` = "0.0.0.0" ]; then					error networkof-5 ; fi
+               ^-------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 0.0.0.0 0) = "0.0.0.0" ]; then					error networkof-5 ; fi
+
+
+In samlib-0.3.1 line 897:
+	if [ ! `networkof 1.2.3.4 24` = "1.2.3.0" ]; then					error networkof-6 ; fi
+               ^--------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 1.2.3.4 24) = "1.2.3.0" ]; then					error networkof-6 ; fi
+
+
+In samlib-0.3.1 line 898:
+	if [ ! `networkof 15.1.2.3 8` = "15.0.0.0" ]; then					error networkof-7 ; fi
+               ^--------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 15.1.2.3 8) = "15.0.0.0" ]; then					error networkof-7 ; fi
+
+
+In samlib-0.3.1 line 899:
+	if [ ! `networkof 1.2.3.4 1` = "0.0.0.0" ]; then					error networkof-8 ; fi
+               ^-------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 1.2.3.4 1) = "0.0.0.0" ]; then					error networkof-8 ; fi
+
+
+In samlib-0.3.1 line 900:
+	if [ ! `networkof 1.2.3.4 0.0.0.0` = "0.0.0.0" ]; then					error networkof-9 ; fi
+               ^-------------------------^ SC2046 (warning): Quote this to prevent word splitting.
+               ^-------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(networkof 1.2.3.4 0.0.0.0) = "0.0.0.0" ]; then					error networkof-9 ; fi
+
+
+In samlib-0.3.1 line 910:
+	N1NET=`networkof ${1%%/*} ${1##*/}` ;	N1BROAD=`broadcastof ${1%%/*} ${1##*/}`
+              ^---------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                         ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                  ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                        ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                                                     ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                              ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	N1NET=$(networkof "${1%%/*}" "${1##*/}") ;	N1BROAD=$(broadcastof "${1%%/*}" "${1##*/}")
+
+
+In samlib-0.3.1 line 911:
+	N2NET=`networkof ${2%%/*} ${2##*/}` ;	N2BROAD=`broadcastof ${2%%/*} ${2##*/}`
+              ^---------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                         ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                  ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                        ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                                                     ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                              ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	N2NET=$(networkof "${2%%/*}" "${2##*/}") ;	N2BROAD=$(broadcastof "${2%%/*}" "${2##*/}")
+
+
+In samlib-0.3.1 line 913:
+	  if iple $N2NET $N1NET &&	iple $N1NET $N2BROAD ; then	return 0	#N1NET inside N2?
+                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                         ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                             ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                    ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	  if iple "$N2NET" "$N1NET" &&	iple "$N1NET" "$N2BROAD" ; then	return 0	#N1NET inside N2?
+
+
+In samlib-0.3.1 line 914:
+	elif iple $N2NET $N1BROAD &&	iple $N1BROAD $N2BROAD ; then	return 0	#N1BROAD inside N2?
+                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                         ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                             ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                      ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	elif iple "$N2NET" "$N1BROAD" &&	iple "$N1BROAD" "$N2BROAD" ; then	return 0	#N1BROAD inside N2?
+
+
+In samlib-0.3.1 line 915:
+	elif iple $N1NET $N2NET &&	iple $N2NET $N1BROAD ; then	return 0	#N2NET inside N1?
+                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                         ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                             ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                    ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	elif iple "$N1NET" "$N2NET" &&	iple "$N2NET" "$N1BROAD" ; then	return 0	#N2NET inside N1?
+
+
+In samlib-0.3.1 line 916:
+	elif iple $N1NET $N2BROAD &&	iple $N2BROAD $N1BROAD ; then	return 0	#N2BROAD inside N1?
+                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                         ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                             ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                      ^------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	elif iple "$N1NET" "$N2BROAD" &&	iple "$N2BROAD" "$N1BROAD" ; then	return 0	#N2BROAD inside N1?
+
+
+In samlib-0.3.1 line 953:
+		for ONEIP in $* ; do
+                             ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+
+
+In samlib-0.3.1 line 954:
+			if iplt $ONEIP $MINIP ; then MINIP=$ONEIP ; fi
+                                ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                       ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			if iplt "$ONEIP" "$MINIP" ; then MINIP=$ONEIP ; fi
+
+
+In samlib-0.3.1 line 955:
+			if iplt $MAXIP $ONEIP ; then MAXIP=$ONEIP ; fi
+                                ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                       ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			if iplt "$MAXIP" "$ONEIP" ; then MAXIP=$ONEIP ; fi
+
+
+In samlib-0.3.1 line 976:
+		  if [ $MINO1 -ne $MAXO1 ]; then		ENONUMBITS=8 ;	ENONETMASK=255.0.0.0
+                       ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		  if [ "$MINO1" -ne "$MAXO1" ]; then		ENONUMBITS=8 ;	ENONETMASK=255.0.0.0
+
+
+In samlib-0.3.1 line 977:
+		elif [ $MINO2 -ne $MAXO2 ]; then		ENONUMBITS=16 ;	ENONETMASK=255.255.0.0
+                       ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$MINO2" -ne "$MAXO2" ]; then		ENONUMBITS=16 ;	ENONETMASK=255.255.0.0
+
+
+In samlib-0.3.1 line 978:
+		elif [ $MINO3 -ne $MAXO3 ]; then		ENONUMBITS=24 ;	ENONETMASK=255.255.255.0
+                       ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		elif [ "$MINO3" -ne "$MAXO3" ]; then		ENONUMBITS=24 ;	ENONETMASK=255.255.255.0
+
+
+In samlib-0.3.1 line 984:
+		while [ $ENONUMBITS -gt 0 ] && iplt $ENOBROADCAST $MAXIP ; do
+                                                    ^-----------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		while [ $ENONUMBITS -gt 0 ] && iplt "$ENOBROADCAST" "$MAXIP" ; do
+
+
+In samlib-0.3.1 line 985:
+			ENONUMBITS=$[ $ENONUMBITS - 1 ]
+                                   ^------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                      ^---------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.1 line 986:
+			ENONETMASK=`bits2mask $ENONUMBITS`
+                                   ^---------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			ENONETMASK=$(bits2mask $ENONUMBITS)
+
+
+In samlib-0.3.1 line 987:
+			ENONETWORK=`networkof $MINIP $ENONETMASK`
+                                   ^----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                              ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                     ^---------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			ENONETWORK=$(networkof "$MINIP" "$ENONETMASK")
+
+
+In samlib-0.3.1 line 988:
+			ENOBROADCAST=`broadcastof $MINIP $ENONETMASK`
+                                     ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                                  ^----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                         ^---------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			ENOBROADCAST=$(broadcastof "$MINIP" "$ENONETMASK")
+
+
+In samlib-0.3.1 line 994:
+	CKPTENCOMPASSINGNETWORKOF=""
+        ^-----------------------^ SC2034 (warning): CKPTENCOMPASSINGNETWORKOF appears unused. Verify use (or export if used externally).
+
+
+In samlib-0.3.1 line 998:
+	if [ ! `encompassingnetworkof 1.2.3.1 1.2.3.1` = "1.2.3.1/32" ]; then			error encompassingnetworkof-1 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 1.2.3.1 1.2.3.1) = "1.2.3.1/32" ]; then			error encompassingnetworkof-1 ; fi
+
+
+In samlib-0.3.1 line 999:
+	if [ ! `encompassingnetworkof 1.2.3.2 1.2.3.3` = "1.2.3.2/31" ]; then			error encompassingnetworkof-2 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 1.2.3.2 1.2.3.3) = "1.2.3.2/31" ]; then			error encompassingnetworkof-2 ; fi
+
+
+In samlib-0.3.1 line 1000:
+	if [ ! `encompassingnetworkof 1.2.3.1 1.2.3.3` = "1.2.3.0/30" ]; then			error encompassingnetworkof-3 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 1.2.3.1 1.2.3.3) = "1.2.3.0/30" ]; then			error encompassingnetworkof-3 ; fi
+
+
+In samlib-0.3.1 line 1001:
+	if [ ! `encompassingnetworkof 1.2.3.0 1.2.3.255` = "1.2.3.0/24" ]; then			error encompassingnetworkof-4 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 1.2.3.0 1.2.3.255) = "1.2.3.0/24" ]; then			error encompassingnetworkof-4 ; fi
+
+
+In samlib-0.3.1 line 1002:
+	if [ ! `encompassingnetworkof 0.0.0.0 255.255.255.255` = "0/0" ]; then			error encompassingnetworkof-5 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 0.0.0.0 255.255.255.255) = "0/0" ]; then			error encompassingnetworkof-5 ; fi
+
+
+In samlib-0.3.1 line 1003:
+	if [ ! `encompassingnetworkof 127.255.255.255 128.0.0.0` = "0/0" ]; then		error encompassingnetworkof-6 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 127.255.255.255 128.0.0.0) = "0/0" ]; then		error encompassingnetworkof-6 ; fi
+
+
+In samlib-0.3.1 line 1004:
+	if [ ! `encompassingnetworkof 172.16.0.1 172.16.5.5` = "172.16.0.0/21" ]; then		error encompassingnetworkof-7 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 172.16.0.1 172.16.5.5) = "172.16.0.0/21" ]; then		error encompassingnetworkof-7 ; fi
+
+
+In samlib-0.3.1 line 1005:
+	if [ ! `encompassingnetworkof 206.231.24.3 206.231.24.254 209.91.2.2 209.91.2.253 209.91.28.2 209.91.28.252 209.91.3.1 209.91.3.254 209.91.32.54 209.91.32.72` = "192.0.0.0/3" ]; then	error encompassingnetworkof-8 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 206.231.24.3 206.231.24.254 209.91.2.2 209.91.2.253 209.91.28.2 209.91.28.252 209.91.3.1 209.91.3.254 209.91.32.54 209.91.32.72) = "192.0.0.0/3" ]; then	error encompassingnetworkof-8 ; fi
+
+
+In samlib-0.3.1 line 1006:
+	if [ ! `encompassingnetworkof 10.1.2.3 9.1.2.3` = "8.0.0.0/6" ]; then			error encompassingnetworkof-9 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 10.1.2.3 9.1.2.3) = "8.0.0.0/6" ]; then			error encompassingnetworkof-9 ; fi
+
+
+In samlib-0.3.1 line 1007:
+	if [ ! `encompassingnetworkof 10.1.2.3 10.255.1.1` = "10.0.0.0/8" ]; then		error encompassingnetworkof-10 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 10.1.2.3 10.255.1.1) = "10.0.0.0/8" ]; then		error encompassingnetworkof-10 ; fi
+
+
+In samlib-0.3.1 line 1008:
+	if [ ! `encompassingnetworkof 10.1.2.3 11.12.13.14 10.2.3.4` = "10.0.0.0/7" ]; then	error encompassingnetworkof-11 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 10.1.2.3 11.12.13.14 10.2.3.4) = "10.0.0.0/7" ]; then	error encompassingnetworkof-11 ; fi
+
+
+In samlib-0.3.1 line 1009:
+	if [ ! `encompassingnetworkof 14.12.1.2 14.12.129.0` = "14.12.0.0/16" ]; then		error encompassingnetworkof-12 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 14.12.1.2 14.12.129.0) = "14.12.0.0/16" ]; then		error encompassingnetworkof-12 ; fi
+
+
+In samlib-0.3.1 line 1010:
+	if [ ! `encompassingnetworkof 14.13.1.1 14.12.255.255` = "14.12.0.0/15" ]; then		error encompassingnetworkof-13 ; fi
+               ^-- SC2046 (warning): Quote this to prevent word splitting.
+               ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! $(encompassingnetworkof 14.13.1.1 14.12.255.255) = "14.12.0.0/15" ]; then		error encompassingnetworkof-13 ; fi
+
+
+In samlib-0.3.1 line 1024:
+	1)	SEQSTART=1 ; SEQSTOP=$[ $1 ]							;;
+                                     ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.1 line 1025:
+	*)	SEQSTART=$[ $1 ] ; SEQSTOP=$[ $2 ]						;;
+                         ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                           ^-----^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.1 line 1034:
+				SEQCOUNT=$[ $SEQCOUNT + 1 ]
+                                         ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                            ^-------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.1 line 1040:
+				SEQCOUNT=$[ $SEQCOUNT - 1 ]
+                                         ^----------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                            ^-------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+
+
+In samlib-0.3.1 line 1047:
+	if [ ! "`seqfunc 1`" = "1" ]; then							error seqfunc-1 ; fi
+                ^---------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc 1)" = "1" ]; then							error seqfunc-1 ; fi
+
+
+In samlib-0.3.1 line 1048:
+	if [ ! "`seqfunc 5`" = "1
+                ^---------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc 5)" = "1
+
+
+In samlib-0.3.1 line 1054:
+	if [ ! "`seqfunc -5`" = "1
+                ^----------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc -5)" = "1
+
+
+In samlib-0.3.1 line 1062:
+	if [ ! "`seqfunc 1 5`" = "1
+                ^-----------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc 1 5)" = "1
+
+
+In samlib-0.3.1 line 1068:
+	if [ ! "`seqfunc 5 5`" = "5" ]; then							error seqfunc-5 ; fi
+                ^-----------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc 5 5)" = "5" ]; then							error seqfunc-5 ; fi
+
+
+In samlib-0.3.1 line 1069:
+	if [ ! "`seqfunc 2 -2`" = "2
+                ^------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc 2 -2)" = "2
+
+
+In samlib-0.3.1 line 1075:
+	if [ ! "`seqfunc -1 -1`" = "-1" ]; then							error seqfunc-7 ; fi
+                ^-------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc -1 -1)" = "-1" ]; then							error seqfunc-7 ; fi
+
+
+In samlib-0.3.1 line 1076:
+	if [ ! "`seqfunc`" = "" ]; then								error seqfunc-8 ; fi
+                ^-------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(seqfunc)" = "" ]; then								error seqfunc-8 ; fi
+
+
+In samlib-0.3.1 line 1089:
+                if [ "${TERM}" = "xterm" -o "${TERM}" = "xterm-color" ]; then
+                                         ^-- SC2166 (warning): Prefer [ p ] || [ q ] as [ p -o q ] is not well defined.
+
+
+In samlib-0.3.1 line 1105:
+requireutil $SUDO touch cat grep printf umask mktemp sed dd rm || exit 1
+            ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+requireutil "$SUDO" touch cat grep printf umask mktemp sed dd rm || exit 1
+
+
+In samlib-0.3.1 line 1121:
+			OLDUMASK=`umask`
+                                 ^-----^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			OLDUMASK=$(umask)
+
+
+In samlib-0.3.1 line 1123:
+			TMPFILE=`mktemp -q /tmp/substline.XXXXXX`
+                                ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			TMPFILE=$(mktemp -q /tmp/substline.XXXXXX)
+
+
+In samlib-0.3.1 line 1124:
+			if [ $? -ne 0 ]; then
+                             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.1 line 1131:
+			umask $OLDUMASK
+                              ^-------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			umask "$OLDUMASK"
+
+
+In samlib-0.3.1 line 1139:
+	REGRESSTESTFILE=`mktemp -q /tmp/$1.XXXXXX`
+                        ^------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                                        ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	REGRESSTESTFILE=$(mktemp -q /tmp/"$1".XXXXXX)
+
+
+In samlib-0.3.1 line 1140:
+	if [ $? -ne 0 ]; then
+             ^-- SC2181 (style): Check exit code directly with e.g. 'if ! mycmd;', not indirectly with $?.
+
+
+In samlib-0.3.1 line 1144:
+	echo Line 1 >$REGRESSTESTFILE
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 1 >"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 1145:
+	echo Line 2 >>$REGRESSTESTFILE
+        ^----------------------------^ SC2129 (style): Consider using { cmd1; cmd2; } >> file instead of individual redirects.
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 2 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 1146:
+	echo Line 3 >>$REGRESSTESTFILE
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 3 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 1147:
+	echo Line 4 >>$REGRESSTESTFILE
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 4 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 1148:
+	echo Line 5 >>$REGRESSTESTFILE
+                      ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo Line 5 >>"$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 1149:
+	substline $REGRESSTESTFILE "2" "goobers" >/dev/null 2>/dev/null
+                  ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	substline "$REGRESSTESTFILE" "2" "goobers" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 1150:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 1157:
+	substline $REGRESSTESTFILE "Isnt in the file" "ggg" >/dev/null 2>/dev/null
+                  ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	substline "$REGRESSTESTFILE" "Isnt in the file" "ggg" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 1158:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 1165:
+	substline $REGRESSTESTFILE "Line 3" "replacement line" >/dev/null 2>/dev/null
+                  ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	substline "$REGRESSTESTFILE" "Line 3" "replacement line" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 1166:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 1173:
+	substline $REGRESSTESTFILE "Line 1" "new line 1">/dev/null 2>/dev/null
+                  ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	substline "$REGRESSTESTFILE" "Line 1" "new line 1">/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 1174:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 1181:
+	substline $REGRESSTESTFILE "Line " "circle " >/dev/null 2>/dev/null
+                  ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	substline "$REGRESSTESTFILE" "Line " "circle " >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 1182:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 1189:
+	substline $REGRESSTESTFILE "e" "qq" >/dev/null 2>/dev/null
+                  ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	substline "$REGRESSTESTFILE" "e" "qq" >/dev/null 2>/dev/null
+
+
+In samlib-0.3.1 line 1190:
+	if [ ! "`cat $REGRESSTESTFILE`" = \
+                ^--------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                     ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	if [ ! "$(cat "$REGRESSTESTFILE")" = \
+
+
+In samlib-0.3.1 line 1197:
+	rm -f $REGRESSTESTFILE
+              ^--------------^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	rm -f "$REGRESSTESTFILE"
+
+
+In samlib-0.3.1 line 1217:
+			LINELENGTH_INT=$[ $LINELENGTH - `echo -n "$WRAPHEADER" | wc -c` ]
+                                       ^-- SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                          ^---------^ SC2004 (style): $/${} is unnecessary on arithmetic variables.
+                                                        ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			LINELENGTH_INT=$[ $LINELENGTH - $(echo -n "$WRAPHEADER" | wc -c) ]
+
+
+In samlib-0.3.1 line 1219:
+			LINELENGTH_INT=$[ 72 - `echo -n "$WRAPHEADER" | wc -c` ]
+                                       ^-- SC2007 (style): Use $((..)) instead of deprecated $[..]
+                                               ^-----------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+			LINELENGTH_INT=$[ 72 - $(echo -n "$WRAPHEADER" | wc -c) ]
+
+
+In samlib-0.3.1 line 1221:
+		if [ $[ $LINELENGTH_INT ] -lt 20 ]; then
+                     ^------------------^ SC2007 (style): Use $((..)) instead of deprecated $[..]
+
+
+In samlib-0.3.1 line 1229:
+			echo $ENH -n "$* " | sed -e "s/\(.\{1,$LINELENGTH_INT\}\)[[:space:]]\+/\1!!LINEFEED!!/g" -e 's/!!LINEFEED!!/\
+                             ^--^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			echo "$ENH" -n "$* " | sed -e "s/\(.\{1,$LINELENGTH_INT\}\)[[:space:]]\+/\1!!LINEFEED!!/g" -e 's/!!LINEFEED!!/\
+
+
+In samlib-0.3.1 line 1237:
+			while read LINE ; do echo $LINE ; done
+                              ^--^ SC2162 (info): read without -r will mangle backslashes.
+                                                  ^---^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			while read LINE ; do echo "$LINE" ; done
+
+
+In samlib-0.3.1 line 1239:
+			echo $ENH $*
+                             ^--^ SC2086 (info): Double quote to prevent globbing and word splitting.
+                                  ^-- SC2048 (warning): Use "$@" (with quotes) to prevent whitespace problems.
+                                  ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+			echo "$ENH" "$*"
+
+
+In samlib-0.3.1 line 1247:
+	if [ ! "`wrap Hello there, world.`" = \
+                ^------------------------^ SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(wrap Hello there, world.)" = \
+
+
+In samlib-0.3.1 line 1251:
+	if [ ! "`wrap The licenses for most software are designed to take away your freedom to share and change it.`" = \
+                ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(wrap The licenses for most software are designed to take away your freedom to share and change it.)" = \
+
+
+In samlib-0.3.1 line 1260:
+	if [ ! "`wrap The licenses for most software are designed to take away your freedom to share and change it.`" = \
+                ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(wrap The licenses for most software are designed to take away your freedom to share and change it.)" = \
+
+
+In samlib-0.3.1 line 1266:
+	if [ ! "`echo 'The licenses for most software are designed to take away your freedom to share and change it. ' | wrap`" = \
+                ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+
+Did you mean:
+	if [ ! "$(echo 'The licenses for most software are designed to take away your freedom to share and change it. ' | wrap)" = \
+
+
+In samlib-0.3.1 line 1281:
+	echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER
+             ^-- SC2046 (warning): Quote this to prevent word splitting.
+             ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                  ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                               ^----------------^ SC2126 (style): Consider using 'grep -c' instead of 'grep|wc -l'.
+                                                                                                                          ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+	echo $(cat "$0" | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l) regression tests successful on "$SAMVER"
+
+
+In samlib-0.3.1 line 1285:
+		echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
+                     ^-- SC2046 (warning): Quote this to prevent word splitting.
+                     ^-- SC2006 (style): Use $(...) notation instead of legacy backticks `...`.
+                          ^-- SC2086 (info): Double quote to prevent globbing and word splitting.
+                                                                       ^----------------^ SC2126 (style): Consider using 'grep -c' instead of 'grep|wc -l'.
+                                                                                                                                  ^-----^ SC2086 (info): Double quote to prevent globbing and word splitting.
+
+Did you mean:
+		echo $(cat "$0" | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l) regression tests successful on "$SAMVER" >>/usr/src/samlib-work/regression-log
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2034 -- BASEFILE appears unused. Verify u...
+  https://www.shellcheck.net/wiki/SC2046 -- Quote this to prevent word splitt...
+  https://www.shellcheck.net/wiki/SC2048 -- Use "$@" (with quotes) to prevent...
