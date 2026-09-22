@@ -258,7 +258,7 @@ askYN () {	#SUDO checked
 	TESTYN=""
 	while [ "$TESTYN" != 'Y' ] && [ "$TESTYN" != 'N' ] ; do
 		echo -n '?' >&2
-		read TESTYN || :
+		read -r TESTYN || :
 		case $TESTYN in
 		T*|t*|Y*|y*)		TESTYN='Y'	;;
 		F*|f*|N*|n*)		TESTYN='N'	;;
@@ -1236,7 +1236,7 @@ else	#Fall back on alternate form of the function that doesnt need sed or wc.
 	#Checks done on the following function: 1
 	wrap () {
 		if [ $# -eq 0 ]; then
-			while read LINE ; do echo $LINE ; done
+			while read -r LINE ; do echo $LINE ; done
 		else
 			echo $ENH $*
 		fi
@@ -1280,11 +1280,13 @@ if [ "$DOREGRESSIONTEST" = "YES" ]; then
 	echo done.
 
 	echo ---------- Exit with a fanfare ----------
+	### echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER
 	echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER
 
 	if [ -d /usr/src/samlib-work ]; then
 		date >>/usr/src/samlib-work/regression-log
-		echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
+		### echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
+		cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
 	fi
 	exit 0
 fi
