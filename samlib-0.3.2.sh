@@ -2,6 +2,9 @@
 #This library of Shell Accessible Modules is Copyright 1997-2003
 #by William Stearns <wstearns@pobox.com>
 #
+# Original project has not been updated since 2003.
+# Updated by TCS Research for shellcheck compliance.
+#
 # shellcheck disable=SC2006,SC2046,SC2086
 #
 #To include these functions in your shell script, enter the following:
