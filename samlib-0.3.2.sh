@@ -69,7 +69,7 @@
 
 
 
-SAMVER="0.3.1, 5/1/2003"
+SAMVER="0.3.2, 09/22/2026"
 
 
 if [ "${1}" = "regression-test" ]; then
