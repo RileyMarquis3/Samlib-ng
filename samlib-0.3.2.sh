@@ -1289,7 +1289,7 @@ if [ "$DOREGRESSIONTEST" = "YES" ]; then
 	if [ -d /usr/src/samlib-work ]; then
 		date >>/usr/src/samlib-work/regression-log
 		### echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
-		cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
+		echo `cat $0 | sed -e 's/#.*//' | grep 'error .* fi' | grep -v regression | wc -l` regression tests successful on $SAMVER >>/usr/src/samlib-work/regression-log
 	fi
 	exit 0
 fi
