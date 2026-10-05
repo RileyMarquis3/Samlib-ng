@@ -80,9 +80,9 @@ if [ "${1}" = "regression-test" ]; then
 	#Checks done on the following function: 
 	error () {
 		echo 
-		echo Failed test: $*
+		echo Failed test: "$*"
 		if [ -d /usr/src/samlib-work ]; then
-			echo Failed test: $* on $SAMVER >>/usr/src/samlib-work/regression-log
+			echo Failed test: "$*" on $SAMVER >>/usr/src/samlib-work/regression-log
 		fi
 		echo -n -e "\a" >&2
 		sleep 1
@@ -955,7 +955,7 @@ encompassingnetworkof () {	#SUDO checked
 	*)
 		MINIP=$1	; MAXIP=$1
 		shift
-		for ONEIP in $* ; do
+		for ONEIP in "$*" ; do
 			if iplt $ONEIP $MINIP ; then MINIP=$ONEIP ; fi
 			if iplt $MAXIP $ONEIP ; then MAXIP=$ONEIP ; fi
 		done
@@ -1241,7 +1241,7 @@ else	#Fall back on alternate form of the function that doesnt need sed or wc.
 		if [ $# -eq 0 ]; then
 			while read -r LINE ; do echo $LINE ; done
 		else
-			echo $ENH $*
+			echo $ENH "$*"
 		fi
 	} #End of wrap
 fi
