@@ -5,7 +5,7 @@
 # Original project has not been updated since 2003.
 # Updated by TCS Research for shellcheck compliance.
 #
-# shellcheck disable=SC2006,SC2046,SC2086
+# shellcheck disable=SC2006,SC2034,SC2046,SC2086
 #
 #To include these functions in your shell script, enter the following:
 #if [ -f /usr/lib/samlib/samlib ]; then
